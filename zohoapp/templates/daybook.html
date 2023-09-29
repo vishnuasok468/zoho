@@ -1,0 +1,543 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<style>
+
+  
+  .col {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+  }
+
+  @media print {
+  /* Hide elements that should not be printed */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Show the printable content and make it more readable */
+  .printable-content,
+  .printable-content * {
+    visibility: visible;
+  }
+
+  .printable-content {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px; /* Add some padding for better readability */
+    background-color: #fff; /* Set a white background for printing */
+  }
+
+  /* Style the table for printing */
+  .printable-content table {
+    width: 100%;
+    border-collapse: collapse; /* Add border-collapse */
+    font-size: 12px; /* Adjust font size for readability */
+    margin: 10px 0; /* Add some margin between tables */
+    border: 1px solid #000; /* Add a border around the table */
+    box-shadow: 5px 5px 5px #888888; /* Add a box shadow to the table */
+  }
+
+  /* Style table headers */
+  .printable-content table th {
+    background-color: #867f7f; /* Add a light gray background to headers */
+    text-align: left;
+  }
+
+  /* Style table rows */
+  .printable-content table tr {
+    page-break-inside: avoid;
+    /* Avoid breaking rows across pages */
+  }
+
+ 
+  .printable-content center {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #000;
+  }
+
+  .printable-content h5 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #000;
+  }
+
+  .printable-content p {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: black;
+    padding: 10px; /* Add padding to paragraphs */
+    border-collapse: collapse;
+  }
+}
+  
+  @media (max-width: 768px) {
+  
+      #d1,
+      #d2,
+      #search-box {
+          width: 30%;
+      }
+
+
+  }
+
+  .daterangepicker {
+      background-color: #f0f0f0;
+      color: #000;
+  }
+
+ 
+</style>
+
+
+
+<div class="d-flex justify-content-between align-items-center" style="margin-top: 40px;">
+  <div class="d-flex">
+      <div class="col">
+          <form action="" method="post" id="date-form">
+              {% csrf_token %}
+              From <input type="date" id="d1" name="d1" required>
+              To <input type="date" id="d2" name="d2" required>
+          </form>
+      </div>
+      <!-- <a href="{% url 'customize_report' %}" style="margin-left: 30px;">Customize report <i class="fa fa-cog"></i></a> -->
+  </div>
+  
+  <div class="d-flex">
+     
+      <!-- <button class="btn btn-light mr-2" id="print" onclick="printPageContent()">   <i class="fa fa-print"></i> Print</button>&nbsp; -->  <button class="btn btn-light mr-2" id="print">   <i class="fa fa-print"></i> Print</button>&nbsp;
+      <button class="btn btn-light mr-2" id="pdf" onclick="exportAsPDF()"><i class="fa fa-file-pdf-o"></i>PDF</button>
+    
+      <div style="width: 3px;"></div>
+      <div class="dropdown">
+          <button class="btn btn-light mr-3 dropdown-toggle" type="button" id="exportDropdown" data-bs-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Export
+          </button>
+          <div class="dropdown-menu" aria-labelledby="exportDropdown">
+           
+              <a class="dropdown-item" href="#" onclick="exportToExcel()">XLS (Excel)</a>
+          </div>
+          <a href="{% url 'reports' %}" class="btn btn-light" style=" color: rgb(1, 1, 1);">
+              <i class="fa fa-times-circle"></i>
+          </a>
+      </div>
+      
+  </div>
+  
+</div>
+<div class="dropdown ml-auto" style=" margin-top:10px;">
+    <button class="btn btn-warning btn-outline-light dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-filter"></i> 
+    </button>
+    <div class="dropdown-menu" aria-labelledby="filterDropdown">
+        <a class="dropdown-item" href="#" data-category="date">Date</a>
+        <a class="dropdown-item" href="#" data-category="type">Type</a>
+        <a class="dropdown-item" href="#" data-category="partyName">Party's Name</a>
+        
+        <a class="dropdown-item" href="#" data-category="totalAmount">Total Amount</a>
+    </div>
+</div>
+<div class="input-group input-group-sm ml-auto" style="width: 150px; margin: 10px; margin-top: -130px;">
+    <input type="text" id="search-box" class="form-control" placeholder="Search...">&nbsp;&nbsp;
+    <div class="input-group-sm">
+       
+           
+       
+    </div>
+</div>
+
+<!-- <hr style="color: #999; background-color: #999; height: 1px; border: none;"> -->
+
+<div class="printable-wrapper" id="container-to-print">
+  <div class="printable-content">
+      <center>
+          {% if company.company_name != None %}
+          <a class="text" style="font-size: 1rem; color: rgb(237, 234, 234);">{{ company.company_name }}</a><br>
+          {% else %}
+          <a class="text" style="font-size: 1rem; color: white;">Add Company</a><br>
+        {% endif %}
+          <h4 class="text" style="color: white;">Day Book</h4>
+          <h5 class="text" style="color:white;">Basis:</h5>
+          <p class="text" style="color: white;" id="date-range-display">From <span id="start_date"></span> To <span id="end_date"></span></p>
+          
+      </center>
+      <div class="table-responsive"> 
+      <table class="table table-bordered table-striped mt-4" id="data-table">
+          <thead>
+              <tr>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Party's Name</th>
+                  <th>Reference No.</th>
+                  <th>Total Amount</th>
+              </tr>
+          </thead>
+          <tbody>
+            {% for it in items %}
+            <tr>
+            <td style="color: white;" >{{it.date}}</td>
+            <td style="color: white;">Items</td>
+            <td style="color: white;">{{it.name}}</td>
+            <td style="color: white;"></td>
+            <td  ></td>
+            {%endfor%}
+        </tr> 
+       {% for p in price %} 
+        <tr>
+            <td style="color: white;">{{p.itemtable.date}}</td>
+            <td style="color: white;">Price List</td>
+            <td style="color: white;">{{p.type}}</td>
+            <td style="color: white;"></td>
+            <td style="color: white;"></td>
+            {% endfor %}
+        </tr> 
+        <!-- <tr>
+            <td></td>
+            <td style="color: white;">Offline Banking</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>  -->
+        <!-- <tr>
+            <td></td>
+            <td style="color: white;">Banking</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr> 
+        <tr>
+            <td></td>
+            <td style="color: white;">Customers</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr> -->
+        {% for es in esti %} 
+        <tr>
+            <td style="color: white;">{{es.estimate_date}}</td>
+            <td style="color: white;">Estimates</td>
+            <td style="color: white;">{{es.customer.customer_Type}}</td>
+            <td style="color: white;">{{es.reference}}</td>
+            <td style="color: white;">{{es.sub_total}}</td>
+
+            {%endfor%}
+        </tr> 
+        {% for re in retain %}
+        <tr>
+            <td style="color: white;">{{re.retainer_invoice_date}}</td>
+            <td style="color: white;">Retainer Invoices</td>
+            <td style="color: white;">{{re.customer_name.customerType}}</td>
+            <td style="color: white;">{{re.refrences}}</td>
+            <td style="color: white;">{{re.total_amount}}</td>
+
+            {%endfor%}
+        </tr> 
+        {% for sa in sales %}
+         <tr>
+            <td style="color: white;">{{sa.sales_date}}</td>
+            <td style="color: white;">Sales Orders</td>
+            <td style="color: white;">{{sa.customer.customerType}}</td>
+            <td style="color: white;">{{sa.reference}}</td>
+            <td style="color: white;">{{sa.grandtotal}}</td>
+
+            {%endfor%}
+        </tr> 
+        {% for d in dc %}
+        <tr>
+            <td style="color: white;">{{d.chellan_date}}</td>
+            <td style="color: white;">Dellivery Challans</td>
+            <td style="color: white;">{{d.customer.customerType}}</td>
+            <td style="color: white;">{{d.reference}}</td>
+            <td style="color: white;">{{d.total}}</td>
+
+            {% endfor %}
+        </tr>
+
+        {% for inv in inv %}
+        <tr>
+            <td style="color: white;">{{inv.inv_date}}</td>
+            <td style="color: white;">Invoices</td>
+            <td style="color: white;">{{inv.customer.customerType}}</td>
+            <td style="color: white;"></td>
+            <td style="color: white;">{{inv.grandtotal}}</td>
+
+            {% endfor %}
+        </tr>
+         {% for c in cred %}
+        <tr>
+
+            <td style="color: white;"> {{c.credit_date}}</td>
+            <td style="color: white;">Credit Notes</td>
+            <td style="color: white;">{{c.customer}}</td>
+            <td style="color: white;">{{c.reference}}</td>
+            <td style="color: white;">{{c.total}}</td>
+
+            {% endfor %} 
+        </tr>
+       
+        {% for pay in payment %}
+        <tr>
+            <td style="color: white;">{{pay.date}}</td>
+            <td style="color: white;">Payment_made</td>
+            <td style="color: white;">{{pay.vendor.first_name}}</td>
+            <td style="color: white;">{{pay.reference}}</td>
+            <td style="color: white;">{{pay.amount}}</td>
+            {%endfor%}
+        </tr> 
+       
+        {% for bill in recbill %}
+        <tr>
+            <td style="color: white;">{{bill.start_date}}</td>
+            <td style="color: white;">Recurring Bill</td>
+            <td style="color: white;">{{bill.vendor_name}}</td>
+            <td style="color: white;"></td>
+            <td style="color: white;">{{bill.grand_total}}</td>
+            {%endfor%}
+        </tr> 
+       {% for vc in vcredit %}
+         <tr>
+            <td style="color: white;">{{vc.vendor_date}}</td>
+            <td style="color: white;">Vendors Credit</td>
+            <td style="color: white;" >{{vc.company_name}}</td>
+            <td></td>
+            <td style="color: white;">{{vc.grandtotal}}</td>
+
+            {% endfor %}
+        </tr> 
+        {% for ex in exp %}
+       <tr>
+            <td style="color: white;">{{ex.start_date}}</td>
+            <td style="color: white;">Expenses</td>
+            <td style="color: white;">{{ex.vendor}}</td>
+            <td></td>
+            <td style="color: white;">{{ex.amount}}</td>
+
+            {% endfor %}
+        </tr> 
+          </tbody>
+      </table>
+  </div>
+</div>
+</div>
+<div class="printable-content mt-3">
+  
+</div>
+
+<script>
+
+
+function exportAsPDF() {
+   const container = document.getElementById('container-to-print');
+ 
+   // Save the original background color
+   const originalBackgroundColor = container.style.backgroundColor;
+ 
+   // Set the container's background color to white
+   container.style.backgroundColor = 'white';
+ 
+   // Apply styling changes to the container's content
+   const textWhiteElements = container.querySelectorAll('.text');
+   textWhiteElements.forEach(element => {
+     element.style.color = 'black'; // Set text color to black
+   });
+ 
+   const tableElements = container.querySelectorAll('table');
+   const tableCells = container.querySelectorAll('td, th');
+   const tableRows = container.querySelectorAll('tr');
+ 
+   tableElements.forEach(table => {
+     table.style.backgroundColor = '#ffffff'; // Set background color to white
+     table.style.color = '#000000'; // Set text color to black
+   });
+ 
+   tableCells.forEach(cell => {
+     cell.style.backgroundColor = '#ffffff'; // Set background color to white
+     cell.style.color = '#000000'; // Set text color to black
+     cell.style.border = '1px solid black'; // Add a black border
+   });
+ 
+   tableRows.forEach(row => {
+     row.style.backgroundColor = '#000000'; // Set background color to black
+   });
+ 
+   const pdfOptions = {
+     margin: 0,
+     filename: '{{company_data.company_name}}Daybook.pdf',
+     image: { type: 'jpeg', quality: 0.98 },
+     html2canvas: { scale: 2 },
+     jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
+   };
+ 
+   // Generate PDF from the container
+   html2pdf().from(container).set(pdfOptions).save().then(() => {
+
+     // Restore the original background color
+     container.style.backgroundColor = originalBackgroundColor;
+
+     textWhiteElements.forEach(element => {
+       element.style.color = 'white'; // Restore original text color
+
+     // Remove the pdf-background class after generating the PDF
+     container.classList.remove('pdf-background');
+     });
+   });
+ }
+
+ // Function to save Excel using XLSX
+ function exportToExcel() {
+     var table = document.querySelector('table');
+     var ws = XLSX.utils.table_to_sheet(table);
+     var wb = XLSX.utils.book_new();
+     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+     XLSX.writeFile(wb, 'report.xlsx');
+ }
+
+ // Function to handle export based on dropdown selection
+ document.getElementById('exportDropdown').addEventListener('change', function () {
+     var selectedValue = this.value;
+     if (selectedValue === 'pdf') {
+         exportToPDF();
+     } else if (selectedValue === 'xls') {
+         exportToExcel();
+     }
+ });
+ const pdfExportLink = document.getElementById('pdf'); // This should be the link for PDF export
+pdfExportLink.addEventListener('click', function (event) {
+ event.preventDefault(); 
+ exportToPDF();
+});
+
+function adjustTableForPrint() {
+     
+     const table = document.querySelector('.printable-content table');
+     const container = document.querySelector('.printable-content');
+
+    
+     const scaleFactor = container.offsetWidth / table.offsetWidth;
+    
+     
+     table.style.transform = `scale(${scaleFactor})`;
+     table.style.transformOrigin = 'top left';
+     
+
+     
+     const marginTop = (container.offsetHeight - table.offsetHeight * scaleFactor) / 2;
+     table.style.marginTop = `${marginTop}px`;
+ }
+
+ //  "Print" button
+ const printButton = document.getElementById('print');
+ printButton.addEventListener('click', function() {
+     adjustTableForPrint();
+     window.print();
+ });
+//date
+
+ const d1 = document.getElementById('d1');
+  const d2 = document.getElementById('d2');
+  const start_date = document.getElementById('start_date');
+  const end_date = document.getElementById('end_date');
+
+  d1.addEventListener('change', updateDateDisplay);
+  d2.addEventListener('change', updateDateDisplay);
+
+  function updateDateDisplay() {
+      start_date.textContent = d1.value;
+      end_date.textContent = d2.value;
+  }
+//search 
+
+$(document).ready(function () {
+  $("#search-box").on("keyup", function () {
+    var searchText = $(this).val().toLowerCase();
+
+    $("tbody tr").each(function () {
+      var row = $(this);
+      var showRow = false;
+
+      var date = row.find("td:eq(0)").text().toLowerCase();
+      var type = row.find("td:eq(1)").text().toLowerCase();
+      var partyName = row.find("td:eq(2)").text().toLowerCase();
+      var referenceNo = row.find("td:eq(3)").text().toLowerCase();
+      var totalAmount = row.find("td:eq(4)").text().toLowerCase();
+
+      showRow =
+        date.includes(searchText) ||
+        type.includes(searchText) ||
+        partyName.includes(searchText) ||
+        referenceNo.includes(searchText) ||
+        totalAmount.includes(searchText);
+
+      if (showRow) {
+        row.show();
+      } else {
+        row.hide();
+      }
+    });
+  });
+});
+
+
+//filter 
+
+$(document).ready(function () {
+    // Store the selected filter category
+    var selectedCategory = "";
+
+    // Handle filter selection from the dropdown
+    $(".dropdown-item").click(function () {
+        selectedCategory = $(this).data("category");
+        $("#filterDropdownButton").text("Filter By: " + $(this).text());
+        applyFilters(selectedCategory);
+    });
+
+    // Handle search input
+    $("#search-box").on("keyup", function () {
+        var searchText = $(this).val().toLowerCase();
+
+        $("tbody tr").each(function () {
+            var row = $(this);
+            var filterValue = row.data("filter"); // Get the filter category for this row
+
+            // Use the selected filter category to determine which column to search
+            var columnText = "";
+            if (selectedCategory === "date") {
+                columnText = row.find("td:eq(0)").text().toLowerCase();
+            } else if (selectedCategory === "type") {
+                columnText = row.find("td:eq(1)").text().toLowerCase();
+            } else if (selectedCategory === "partyName") {
+                columnText = row.find("td:eq(2)").text().toLowerCase();
+            } else if (selectedCategory === "referenceNo") {
+                columnText = row.find("td:eq(3)").text().toLowerCase();
+            } else if (selectedCategory === "totalAmount") {
+                columnText = row.find("td:eq(4)").text().toLowerCase();
+            }
+
+            var showRow = columnText.includes(searchText);
+
+            // Show or hide the row based on filter and search results
+            if (showRow) {
+                row.show();
+            } else {
+                row.hide();
+            }
+        });
+    });
+});
+
+
+</script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+
+{%endblock%}
