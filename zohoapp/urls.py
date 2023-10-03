@@ -721,7 +721,8 @@ urlpatterns = [
     path('recuramt/<int:id>',views.recuramt,name='recuramt'),
 
 
-    path('abc',views.abc,name='abc'),
+    path('horizontal_profit_and_loss',views.horizontal_profit_and_loss,name='horizontal_profit_and_loss'),
+    path('customize_report_hpl',views.customize_report_hpl,name='customize_report_hpl'),
     # ....................................................................................................
     
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),

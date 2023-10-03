@@ -9094,17 +9094,22 @@ def add_est_comment(request,pk):
        
         comment.save()
     return redirect('estimateslip',estimate.id)
+
+#____________________horizontal profit and loss___________________
+def horizontal_profit_and_loss(request):
+    company = company_details.objects.get(user = request.user.id)
+    return render(request,'horizontal_profit&loss.html',{'company':company})
+
+def customize_report_hpl(request):
+    company = company_details.objects.get(user = request.user.id)
+    return render(request,'customize_report_hpl.html',{"company":company})
     
     
 ###########Report############
 def report_inventory_view(request):
     company = company_details.objects.get(user=request.user)
     return render(request,'reports_inventory.html',{'company':company})
-
-def abc(request):
-    return render(request,'abcd.html')
-    
-    
+   
 def report_view(request):
     company = company_details.objects.get(user=request.user)
     return render(request,'reports.html',{'company':company})

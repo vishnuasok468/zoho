@@ -3,18 +3,19 @@
 {% load static %}
 
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>  
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.0/css/pikaday.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.0/css/pikaday.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.0/pikaday.min.js"></script>
 </head>
 
 <style>
-
     table {
         width: 100%;
-        }
+    }
 
-    th,td {
+    th,
+    td {
         text-align: left;
         color: white;
     }
@@ -23,51 +24,52 @@
         border: none;
     }
 
-    table,th{
+    table,
+    th {
         border: 1pt solid white;
     }
 
-    th i{
+    th i {
         font-size: 200%;
         color: white;
     }
 
-    .right{
+    .right {
         text-align: right;
         border-right: 1pt solid white;
     }
 
-    .border_right{
+    .border_right {
         border-right: 1pt solid white;
     }
 
-    table a:hover{
-        background-color:#007bff;
-        color:#007bff;
+    table a:hover {
+        background-color: #007bff;
+        color: #007bff;
     }
 
-    table a:active{
+    table a:active {
         background-color: #007bff;
     }
 
-    .myDiv:target{
-        display:block !important;
+    .myDiv:target {
+        display: block !important;
     }
 
-    .myd{
-        display:none;
-        padding:10px;
-        margin-top:20px;
-    }  
+    .myd {
+        display: none;
+        padding: 10px;
+        margin-top: 20px;
+    }
 
-    #custom-dropdown-btn{
+    #custom-dropdown-btn {
         background-color: white;
         width: 96%;
         height: 4vh;
         text-align: left;
     }
 
-    #date-options{
+    #date-options {
         background-color: white;
         width: 96%;
         margin-top: 1vh;
@@ -75,62 +77,67 @@
         border-radius: 10px;
     }
 
-    #date-options a{
+    #date-options a {
         color: #060606;
     }
 
-    #date-options a:hover{
+    #date-options a:hover {
         background-color: white;
     }
 
-    .div-option:hover{
+    .div-option:hover {
         background-color: #007bff;
     }
 
-    .dropdown-item:hover{
+    .dropdown-item:hover {
         background-color: white;
     }
 
-    #furplus, #funplus,#totalfur,#totalfun{
+    #furplus,
+    #funplus,
+    #totalfur,
+    #totalfun {
         display: none;
     }
 
-    #furminus,#funminus,#furplus,#funplus a:hover{
-        background-color:transparent;
+    #furminus,
+    #funminus,
+    #furplus,
+    #funplus a:hover {
+        background-color: transparent;
     }
 
-    .close-button{
-        font-size: 2vh; 
+    .close-button {
+        font-size: 2vh;
         font-weight: 100;
     }
 
-    .close-button:hover{
+    .close-button:hover {
         color: blue;
     }
 
-    table a{
-        color:white
+    table a {
+        color: white
     }
 
-    table a:hover{
-        color:rgb(184, 121, 4);
+    table a:hover {
+        color: rgb(184, 121, 4);
         background-color: transparent;
     }
 
-    .customize:hover{
+    .customize:hover {
         background-color: transparent;
     }
 
-    @media print{
-        body{
+    @media print {
+        body {
             visibility: hidden;
         }
-        
-        #printdiv{
+
+        #printdiv {
             visibility: visible;
         }
     }
-
 </style>
 
 <div class="container-fluid">
@@ -139,28 +146,50 @@
             <div class="custom-dropdown">
                 <div class="d-flex">
                     <i class="fa fa-calendar" aria-hidden="true" style="font-size: 4vh; color: white;"></i>&nbsp;
-                    <a id="custom-dropdown-btn" href="#" class="btn bg-white text-dark" style="font-size: 1vw; height: 30px;"></a>
+                    <a id="custom-dropdown-btn" href="#" class="btn bg-white text-dark"
+                        style="font-size: 1vw; height: 30px;"></a>
                 </div>
                 <div id="datepicker-container" style="display: none;">
                     <div id="date-options" style="display: none;">
-                        <a class="date-option" href="#"><div class="div-option">Today</div></a>
-                        <a class="date-option" href="#"><div class="div-option">This Week</div></a>
-                        <a class="date-option" href="#"><div class="div-option">This Month</div></a>
-                        <a class="date-option" href="#"><div class="div-option">This Quarter</div></a>
-                        <a class="date-option" href="#"><div class="div-option">This Year</div></a>
-                        <a class="date-option" href="#"><div class="div-option">Yesterday</div></a>
-                        <a class="date-option" href="#"><div class="div-option">Previous Week</div></a>
-                        <a class="date-option" href="#"><div class="div-option">Previous Month</div></a>
-                        <a class="date-option" href="#"><div class="div-option">Previous Quarter</div></a>
-                        <a id="datepicker" href="#"><div class="div-option">Custom</div></a>
+                        <a class="date-option" href="#">
+                            <div class="div-option">Today</div>
+                        </a>
+                        <a class="date-option" href="#">
+                            <div class="div-option">This Week</div>
+                        </a>
+                        <a class="date-option" href="#">
+                            <div class="div-option">This Month</div>
+                        </a>
+                        <a class="date-option" href="#">
+                            <div class="div-option">This Quarter</div>
+                        </a>
+                        <a class="date-option" href="#">
+                            <div class="div-option">This Year</div>
+                        </a>
+                        <a class="date-option" href="#">
+                            <div class="div-option">Yesterday</div>
+                        </a>
+                        <a class="date-option" href="#">
+                            <div class="div-option">Previous Week</div>
+                        </a>
+                        <a class="date-option" href="#">
+                            <div class="div-option">Previous Month</div>
+                        </a>
+                        <a class="date-option" href="#">
+                            <div class="div-option">Previous Quarter</div>
+                        </a>
+                        <a id="datepicker" href="#">
+                            <div class="div-option">Custom</div>
+                        </a>
                     </div>
                 </div>
             </div><br><br>
         </div>
-        <div class="col-md-5" >
-            <button class="btn btn-light"><a class="text-dark customize" href="{% url 'load_customize_report_hbs' %}"><i class="fa fa-cog">&nbsp;</i>Customize Report</a></button>
+        <div class="col-md-5">
+            <button class="btn btn-light"><a class="text-dark customize" href="{% url 'load_customize_report_hbs' %}"><i
+                        class="fa fa-cog">&nbsp;</i>Customize Report</a></button>
         </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <div class=" col-md-1 d-flex" >            
+        <div class=" col-md-1 d-flex">
             <button class="btn btn-light" type="button" style="height: 30px;" onclick="display()">
                 <i class="fa fa-print">&nbsp;Print</i>
             </button>
@@ -171,15 +200,16 @@
             </button>
         </div>
         <div class="col-md-2 d-flex">
-            <button class="btn btn-light dropdown-toggle" type="button" id="exportDropdown2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height: 30px;">
+            <button class="btn btn-light dropdown-toggle" type="button" id="exportDropdown2" data-bs-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" style="height: 30px;">
                 <i class='fas fa-file-export'></i> Export
             </button>
             <div class="dropdown-menu " aria-labelledby="exportDropdown2">
                 <a class="dropdown-item" href="#" onclick="exportToExcel()">XLS (Excel)</a>
             </div>&nbsp;&nbsp;&nbsp;
             <a href="{% url 'report_inventory_view' %}" class="btn btn-light close-button" style="height: 30px;">
-                X 
-             </a>
+                X
+            </a>
         </div>
     </div>
 
@@ -195,124 +225,138 @@
                         <tbody>
                             <tr>
                                 <td style="vertical-align: top; width: 50%;">
-                                    <div class="text-uppercase" style="text-align: center; color: grey; font-size: 2rem; font-weight: 500;">
-                                        Liabilities &amp; Equities  
-                                        <p style="border-bottom: 1px solid white; margin-left: -2vh; margin-right: -2vh; margin-top: 2vh;"></p>
+                                    <div class="text-uppercase"
+                                        style="text-align: center; color: grey; font-size: 2rem; font-weight: 500;">
+                                        Liabilities &amp; Equities
+                                        <p
+                                            style="border-bottom: 1px solid white; margin-left: -2vh; margin-right: -2vh; margin-top: 2vh;">
+                                        </p>
                                     </div>
-                                    <div> 
-                                        <span class="text-uppercase" style="font-size: large;">Current Liabilities</span>
+                                    <div>
+                                        <span class="text-uppercase" style="font-size: large;">Current
+                                            Liabilities</span>
                                         <div><br><br>
                                             <div>
-                                                • Employee Reimbursements 
-                                                <a style="float: right;"href="#">0</a> 
-                                            </div><br>
-                                            <div>
-                                                • HMRC-PAYE (0 ) 
+                                                • Employee Reimbursements
                                                 <a style="float: right;" href="#">0</a>
                                             </div><br>
                                             <div>
-                                                • Opening Balance Adjustments 
-                                                <a style="float: right;" href="#">0</a> 
-                                            </div><br>
-                                            <div>
-                                                • Output VAT 
-                                                <a style="float: right;" href="#">0</a> 
-                                            </div><br>
-                                            <div>
-                                                • Unearned Revenue 
+                                                • HMRC-PAYE (0 )
                                                 <a style="float: right;" href="#">0</a>
                                             </div><br>
                                             <div>
-                                                • VAT MOSS Payable 
+                                                • Opening Balance Adjustments
                                                 <a style="float: right;" href="#">0</a>
                                             </div><br>
                                             <div>
-                                                • VAT Payable 
-                                                <a style="float: right;" href="#">0</a> 
-                                            </div><hr>
-                                            <div class="text-right text-uppercase " style=" float: right;"> 
+                                                • Output VAT
+                                                <a style="float: right;" href="#">0</a>
+                                            </div><br>
+                                            <div>
+                                                • Unearned Revenue
+                                                <a style="float: right;" href="#">0</a>
+                                            </div><br>
+                                            <div>
+                                                • VAT MOSS Payable
+                                                <a style="float: right;" href="#">0</a>
+                                            </div><br>
+                                            <div>
+                                                • VAT Payable
+                                                <a style="float: right;" href="#">0</a>
+                                            </div>
+                                            <hr>
+                                            <div class="text-right text-uppercase " style=" float: right;">
                                                 Total Current Liabilities&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0
                                             </div><br><br>
                                         </div>
                                     </div>
-                                    <div> 
-                                        <span class="text-uppercase" style="font-size: large;"><br>Other Liabilities</span>
+                                    <div>
+                                        <span class="text-uppercase" style="font-size: large;"><br>Other
+                                            Liabilities</span>
                                         <div>
                                             <div><br><br>
-                                                • Tag Adjustments 
-                                                <a style="float: right;" href="#">0</a> 
-                                            </div><hr>
-                                            <div class="text-right text-uppercase " style=" float: right;"> 
-                                                Total Other Liabilities&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 
+                                                • Tag Adjustments
+                                                <a style="float: right;" href="#">0</a>
+                                            </div>
+                                            <hr>
+                                            <div class="text-right text-uppercase " style=" float: right;">
+                                                Total Other Liabilities&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0
                                             </div><br><br><br>
                                         </div>
                                     </div>
-                                    <div> 
+                                    <div>
                                         <span class="text-uppercase" style="font-size: large;">Equities</span>
                                         <div>
                                             <div><br><br>
-                                                • Current Year Earnings 
-                                                <a style="float: right;" href="#">0</a> 
-                                            </div><br>
-                                            <div>
-                                                • Opening Balance Offset 
+                                                • Current Year Earnings
                                                 <a style="float: right;" href="#">0</a>
                                             </div><br>
                                             <div>
-                                                • Owner's Equity 
-                                                <a style="float: right;" href="#">0</a> 
+                                                • Opening Balance Offset
+                                                <a style="float: right;" href="#">0</a>
+                                            </div><br>
+                                            <div>
+                                                • Owner's Equity
+                                                <a style="float: right;" href="#">0</a>
                                             </div><br>
                                             <div>
                                                 • Retained Earnings <span style="float: right;">0</span>
-                                            </div><hr>
-                                            <div class="text-right text-uppercase " style=" float: right;"> 
-                                                Total Equities&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 
+                                            </div>
+                                            <hr>
+                                            <div class="text-right text-uppercase " style=" float: right;">
+                                                Total Equities&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0
                                             </div>
                                         </div>
                                     </div>
                                 </td>
 
                                 <td style=" border-left: 1pt solid white; width: 50%;">
-                                    <div class="text-uppercase"  style="text-align: center; color: grey; font-size: 2rem; font-weight: 500;">
+                                    <div class="text-uppercase"
+                                        style="text-align: center; color: grey; font-size: 2rem; font-weight: 500;">
                                         Assets
-                                        <p style="border-bottom: 1px solid white; margin-left: -2vh; margin-right: -2vh; margin-top: 2vh;"></p>
+                                        <p
+                                            style="border-bottom: 1px solid white; margin-left: -2vh; margin-right: -2vh; margin-top: 2vh;">
+                                        </p>
                                     </div>
-                                    <div> 
-                                        <span class="text-uppercase" style="font-size: large;">Current Assets</span><hr>
+                                    <div>
+                                        <span class="text-uppercase" style="font-size: large;">Current Assets</span>
+                                        <hr>
                                         <div>
                                             <div><br>
-                                                <div style="font-size: medium;"  > Bank </div><hr>
+                                                <div style="font-size: medium;"> Bank </div>
+                                                <hr>
                                                 <div>
                                                     • Bank Acc 1
-                                                    <a style="float: right;" href="#">0</a> 
+                                                    <a style="float: right;" href="#">0</a>
                                                 </div><br>
                                                 <div>
                                                     • Bank Of America
-                                                    <a style="float: right;" href="#">0</a> 
+                                                    <a style="float: right;" href="#">0</a>
                                                 </div><br>
                                                 <div>
                                                     • Eur Bank Acc
-                                                    <a style="float: right;" href="#">0</a> 
+                                                    <a style="float: right;" href="#">0</a>
                                                 </div><br>
                                                 <div>
                                                     • New Acc 1
-                                                    <a style="float: right;" href="#">0</a> 
+                                                    <a style="float: right;" href="#">0</a>
                                                 </div><br>
 
                                                 <div class="text-right" style=" float: right;">
-                                                        Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0
+                                                    Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0
                                                 </div><br><br>
                                                 <p style="border-bottom: 1px dotted white; "></p>
 
                                             </div>
                                             <div>
-                                                <div style="font-size: medium;" > Cash </div><hr>
+                                                <div style="font-size: medium;"> Cash </div>
+                                                <hr>
                                                 <div>
-                                                    • Petty Cash 
-                                                    <a style="float: right;" href="#">0</a> 
+                                                    • Petty Cash
+                                                    <a style="float: right;" href="#">0</a>
                                                 </div><br>
                                                 <div>
-                                                    • Undeposited Funds 
+                                                    • Undeposited Funds
                                                     <a style="float: right;" href="#">0</a>
                                                 </div><br>
                                                 <div class="text-right" style=" float: right;">
@@ -321,22 +365,22 @@
                                                 <p style="border-bottom: 1px dotted white; "></p>
                                             </div>
                                             <div>
-                                                <div style="font-size: medium;" > Other Current Assets </div><br>
+                                                <div style="font-size: medium;"> Other Current Assets </div><br>
                                                 <div>
-                                                    • Advance Tax 
-                                                    <a style="float: right;" href="#">0</a> 
+                                                    • Advance Tax
+                                                    <a style="float: right;" href="#">0</a>
                                                 </div><br>
                                                 <div>
-                                                    • Employee Advance 
-                                                    <a style="float: right;" href="#">0</a> 
+                                                    • Employee Advance
+                                                    <a style="float: right;" href="#">0</a>
                                                 </div><br>
                                                 <div>
-                                                    • Input VAT 
-                                                    <a style="float: right;" href="#">0</a> 
+                                                    • Input VAT
+                                                    <a style="float: right;" href="#">0</a>
                                                 </div><br>
                                                 <div>
-                                                    • Sales to Customers (Cash) 
-                                                    <a style="float: right;" href="#">0</a> 
+                                                    • Sales to Customers (Cash)
+                                                    <a style="float: right;" href="#">0</a>
                                                 </div><br>
                                                 <div class="text-right" style=" float: right;">
                                                     Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0
@@ -344,25 +388,25 @@
                                                 <p style="border-bottom: 1px dotted white; "></p>
                                             </div>
                                             <div>
-                                                <div style="font-size: medium;" > Other Assets </div><br>
+                                                <div style="font-size: medium;"> Other Assets </div><br>
                                                 <div>
-                                                    • Error ( Error ) 
-                                                    <a style="float: right;" href="#">0</a> 
-                                                </div><br>
-                                                <div>
-                                                    • GoCardless Clearing 
-                                                    <a style="float: right;" href="#">0</a> 
-                                                </div><br>
-                                                <div>
-                                                    • GoCardless Clearing - EUR 
+                                                    • Error ( Error )
                                                     <a style="float: right;" href="#">0</a>
                                                 </div><br>
                                                 <div>
-                                                    • GoCardless Clearing - GBP 
+                                                    • GoCardless Clearing
                                                     <a style="float: right;" href="#">0</a>
                                                 </div><br>
                                                 <div>
-                                                    • Inventory Asset 
+                                                    • GoCardless Clearing - EUR
+                                                    <a style="float: right;" href="#">0</a>
+                                                </div><br>
+                                                <div>
+                                                    • GoCardless Clearing - GBP
+                                                    <a style="float: right;" href="#">0</a>
+                                                </div><br>
+                                                <div>
+                                                    • Inventory Asset
                                                     <a style="float: right;" href="#">0</a>
                                                 </div><br>
                                                 <div class="text-right" style="float: right;">
@@ -370,58 +414,64 @@
                                                 </div><br><br>
                                                 <p style="border-bottom: 1px dotted white; "></p>
                                             </div>
-                                            <div class="text-right text-uppercase " style=" float: right;"> 
-                                                Total Current Assets&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 
+                                            <div class="text-right text-uppercase " style=" float: right;">
+                                                Total Current Assets&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0
                                             </div><br><br><br>
                                         </div>
                                     </div>
-                                    <div> 
-                                        <span class="text-uppercase" style="font-size: large;">Fixed Assets</span><br><br><br>
+                                    <div>
+                                        <span class="text-uppercase" style="font-size: large;">Fixed
+                                            Assets</span><br><br><br>
                                         <div>
-                                            <div> 
-                                                <a class="btn" style="border: 2px solid white; font-size: x-small;" id="furplus" onclick="openfur()">+</a>
-                                                <a class="btn" style="border: 2px solid white; font-size: x-small;" id="furminus" onclick="closefur()">-</a>
-                                                    Furniture and Equipment
-                                                <a href="#" style="float: right;" id="furvalue">  0 </a>
-                                                <a href="#" style="float: right;"  id="totalfur">  0 </a>
+                                            <div>
+                                                <a class="btn" style="border: 2px solid white; font-size: x-small;"
+                                                    id="furplus" onclick="openfur()">+</a>
+                                                <a class="btn" style="border: 2px solid white; font-size: x-small;"
+                                                    id="furminus" onclick="closefur()">-</a>
+                                                Furniture and Equipment
+                                                <a href="#" style="float: right;" id="furvalue"> 0 </a>
+                                                <a href="#" style="float: right;" id="totalfur"> 0 </a>
                                             </div><br><br>
-                                            <div id="furdiv1"> 
-                                                &nbsp;&nbsp;&nbsp;&nbsp; 
-                                                &nbsp;&nbsp;&nbsp;&nbsp; 
-                                                <a class="btn" style="border: 2px solid white; font-size: x-small;" id="funplus" onclick="openfun()">+</a>
-                                                <a class="btn" style="border: 2px solid white; font-size: x-small;" id="funminus" onclick="closefun()">-</a>
-                                                Fun ( 0 ) 
+                                            <div id="furdiv1">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                                <a class="btn" style="border: 2px solid white; font-size: x-small;"
+                                                    id="funplus" onclick="openfun()">+</a>
+                                                <a class="btn" style="border: 2px solid white; font-size: x-small;"
+                                                    id="funminus" onclick="closefun()">-</a>
+                                                Fun ( 0 )
                                                 <a style="float: right;" href="#" id="funvalue"> 0 </a>
                                                 <a style="float: right;" href="#" id="totalfun"> 0 </a>
                                             </div><br>
                                             <div id="fundiv1">
                                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                bugfix account (0) 
+                                                bugfix account (0)
                                                 <a style="float: right;" href="#">0</a>
                                             </div><br>
-                                            <div style=" float: right;" id="fundiv2"> 
+                                            <div style=" float: right;" id="fundiv2">
                                                 Total for Fun
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <a href="#">0</a>
                                             </div><br><br>
-                                            <div style=" float: right;" id="furdiv2"> 
+                                            <div style=" float: right;" id="furdiv2">
                                                 Total for Furniture and Equipment
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <a href="#" style="float: right;">0</a>
                                             </div><br><br>
-                                            <div class="text-right text-uppercase " style=" float: right;"> 
-                                                Total Fixed Assets&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 
+                                            <div class="text-right text-uppercase " style=" float: right;">
+                                                Total Fixed Assets&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="font-size: large; width: 50%; border-top:1pt solid white;" > 
+                                <td style="font-size: large; width: 50%; border-top:1pt solid white;">
                                     TOTAL LIABILITIES &amp; EQUITIES <span style="float: right;"></span>
                                 </td>
-                                <td style="font-size: large; width: 50%; border-left: 1pt solid white; border-top:1pt solid white;" > 
+                                <td
+                                    style="font-size: large; width: 50%; border-left: 1pt solid white; border-top:1pt solid white;">
                                     TOTAL ASSETS <span style="float: right;">0</span>
                                 </td>
                             </tr>
@@ -441,7 +491,7 @@
 
 
 <script>
-    function openfur(){
+    function openfur() {
         $("#furdiv1").show()
         $("#furdiv2").show()
         $("#furplus").hide()
@@ -454,7 +504,7 @@
         $("#funminus").hide()
     }
 
-    function closefur(){
+    function closefur() {
         $("#furdiv1").hide()
         $("#furdiv2").hide()
         $("#furplus").show()
@@ -465,7 +515,7 @@
         $("#fundiv2").hide()
     }
 
-    function openfun(){
+    function openfun() {
         $("#fundiv1").show()
         $("#fundiv2").show()
         $("#funplus").hide()
@@ -474,7 +524,7 @@
         $("#funvalue").show()
     }
 
-    function closefun(){
+    function closefun() {
         $("#fundiv1").hide()
         $("#fundiv2").hide()
         $("#funplus").show()
@@ -493,11 +543,11 @@
 
     }
 
-    function exportToPDF(){
+    function exportToPDF() {
         var content = document.getElementById('pdfdiv');
         html2pdf()
-        .from(content)
-        .save('report.pdf')
+            .from(content)
+            .save('report.pdf')
     }
 
     // Function to save Excel using XLSX
@@ -510,18 +560,18 @@
     }
 
     // Initialize Pikaday date picker
-    const weekday = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-    const month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    var nowDate = new Date(); 
+    const weekday = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var nowDate = new Date();
 
     const picker = new Pikaday({
         field: document.getElementById('datepicker'),
         format: 'MM/DD/YYYY', // You can change the date format
-        onSelect: function(date) {
-            
+        onSelect: function (date) {
+
             // document.getElementById('custom-dropdown-btn').textContent =  "Custom";
-            document.getElementById('custom-dropdown-btn').textContent =  picker.toString();
-            document.getElementById('todaydate').textContent =  picker.toString().slice(4);
+            document.getElementById('custom-dropdown-btn').textContent = picker.toString();
+            document.getElementById('todaydate').textContent = picker.toString().slice(4);
             document.getElementById('datepicker-container').style.display = 'none';
             document.getElementById('date-options').style.display = 'none';
         }
@@ -532,7 +582,7 @@
     const datepickerContainer = document.getElementById('datepicker-container');
     const dateOptions = document.getElementById('date-options');
 
-    customDropdownBtn.addEventListener('click', function() {
+    customDropdownBtn.addEventListener('click', function () {
         if (datepickerContainer.style.display === 'none') {
             datepickerContainer.style.display = 'block';
             dateOptions.style.display = 'block';
@@ -543,7 +593,7 @@
     });
 
     // Close date picker if clicking outside
-    document.addEventListener('click', function(event) {
+    document.addEventListener('click', function (event) {
         if (!datepickerContainer.contains(event.target) && event.target !== customDropdownBtn) {
             datepickerContainer.style.display = 'none';
             dateOptions.style.display = 'none';
@@ -552,9 +602,9 @@
 
     // Add date option handlers
     const dateOptionButtons = document.querySelectorAll('.date-option');
-    
-    dateOptionButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
+
+    dateOptionButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
             const optionText = button.textContent;
             switch (optionText) {
                 case 'Today':
@@ -642,7 +692,7 @@
                     // document.getElementById('datepicker-container').style.display = 'none';
                     // document.getElementById('date-options').style.display = 'none';
                     break;
-                    
+
                 default:
                     break;
             }
@@ -652,12 +702,12 @@
     });
 
     var formdate = "{{newdate}}";
-    if(formdate){
-        document.getElementById('custom-dropdown-btn').innerHTML= formdate
-        document.getElementById('todaydate').innerHTML= formdate.slice(4)
-    }else{
-        document.getElementById('custom-dropdown-btn').innerHTML= weekday[nowDate.getDay()]+" "+month[nowDate.getMonth()]+" "+nowDate.getDate()+" "+ nowDate.getFullYear(); 
-        document.getElementById('todaydate').innerHTML= nowDate.getDate() +" "+ month[nowDate.getMonth()]+" "+ nowDate.getFullYear(); 
+    if (formdate) {
+        document.getElementById('custom-dropdown-btn').innerHTML = formdate
+        document.getElementById('todaydate').innerHTML = formdate.slice(4)
+    } else {
+        document.getElementById('custom-dropdown-btn').innerHTML = weekday[nowDate.getDay()] + " " + month[nowDate.getMonth()] + " " + nowDate.getDate() + " " + nowDate.getFullYear();
+        document.getElementById('todaydate').innerHTML = nowDate.getDate() + " " + month[nowDate.getMonth()] + " " + nowDate.getFullYear();
     };
 
 </script>
