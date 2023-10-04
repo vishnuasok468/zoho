@@ -723,6 +723,10 @@ urlpatterns = [
 
     path('horizontal_profit_and_loss',views.horizontal_profit_and_loss,name='horizontal_profit_and_loss'),
     path('customize_report_hpl',views.customize_report_hpl,name='customize_report_hpl'),
+    path('balance_sheet_sthree',views.balance_sheet_sthree,name='balance_sheet_sthree'),
+    path('customize_report_bss3',views.customize_report_bss3,name='customize_report_bss3'),
+
+
     # ....................................................................................................
     
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),

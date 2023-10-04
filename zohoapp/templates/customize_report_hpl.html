@@ -43,13 +43,13 @@
                 <div class="custom-dropdown">
                     <div class="row">
                         <div class="col-md-3">
-                            <label for="dateRangePicker" style="font-size: medium;">Date Options</label>
+                            <label for="dateRangePicker" style="font-size: medium;">Date Range</label>
                         </div>
                         <div class="col-md-9 d-flex">
                             <i class="fa fa-calendar" aria-hidden="true"
                                 style="font-size: 4vh; color: white;"></i>&nbsp;
-                            <select class="bg-white text-dark" id="filterDropdown" onclick="filterDates()"
-                                style="font-size: 1vw; height: 30px;">
+                            <select id="filterDropdown" onclick="filterDates()" class="form-control text-dark bg-white"
+                                style="width: 61%;">
                                 <option value="" hidden>Select</option>
                                 <option value="today">Today</option>
                                 <option value="thisWeek">This Week</option>
@@ -69,6 +69,7 @@
                                 <label for="startDate">Start Date:</label>
                                 <input type="date" id="startDate">
                             </div>
+                            
 
                             <div class="date-container">
                                 <label for="endDate">End Date:</label>
@@ -79,6 +80,7 @@
                     </div>
 
                 </div><br><br><br><br><br><br><br><br><br><br><br>
+                <hr>
 
                 <div class="row">
                     <div class="col-md-4 d-flex">
@@ -108,10 +110,10 @@
         }
     });
 
-    applyBtn.addEventListener("click", function(){
-        if(dateInputs.style.display === "block"){
+    applyBtn.addEventListener("click", function () {
+        if (dateInputs.style.display === "block") {
             dateInputs.style.display = "none"
-        }else {
+        } else {
             dateInputs.style.display = "block"
         }
     });

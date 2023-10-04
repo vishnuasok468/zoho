@@ -9103,8 +9103,17 @@ def horizontal_profit_and_loss(request):
 def customize_report_hpl(request):
     company = company_details.objects.get(user = request.user.id)
     return render(request,'customize_report_hpl.html',{"company":company})
-    
-    
+
+#_______________________balance sheet (schedule 3)______________________
+
+def balance_sheet_sthree(request):
+    company = company_details.objects.get(user = request.user.id)
+    return render(request,'balance_sheet_schedule_3.html',{'company':company})
+
+def customize_report_bss3(request):
+    company = company_details.objects.get(user = request.user.id)
+    return render(request,'customize_report_bss3.html',{'company':company})
+
 ###########Report############
 def report_inventory_view(request):
     company = company_details.objects.get(user=request.user)
