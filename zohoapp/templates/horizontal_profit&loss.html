@@ -2,6 +2,12 @@
 {% block content %}
 {% load static %}
 
+<head>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+</head>
+
 <style>
     table {
         width: 100%;
@@ -153,15 +159,16 @@
             <div id="dateInputs" style="display: none;">
                 <div class="date-container">
                     <label for="startDate">Start Date:</label>
-                    <input type="date" id="startDate">
+                    <input type="date" id="startDate" >
                 </div>
 
                 <div class="date-container">
                     <label for="endDate">End Date:</label>
-                    <input type="date" id="endDate">
+                    <input type="date" id="endDate" >
                 </div>
                 <button onclick="printDates()" id="applyBtn" class="btn btn-secondary">Submit</button>
             </div>
+
         </div>
 
         <div class="col-md-5">
@@ -191,6 +198,7 @@
             </a>
         </div>
     </div><br><br><br>
+
 
     <div class="row" id="pdfdiv" style="width:105%">
         <div class="row bg-dark" id="printdiv" style="border-radius: 3vh; width: 77vw;">
@@ -561,10 +569,16 @@
         const formattedStartDate = startDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
         const formattedEndDate = endDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
-        document.getElementById("selectedDate").textContent = "From   " + formattedStartDate + " To   " + formattedEndDate;
+        document.getElementById("selectedDate").textContent = ` from ${formattedStartDate} to  ${formattedEndDate}`;
     }
+
+
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+
+
 
 
 {% endblock %}
