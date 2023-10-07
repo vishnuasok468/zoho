@@ -578,6 +578,11 @@
         document.getElementById("selectedDate").textContent = result;
         
     }
+
+    const selectElement = document.getElementById('filterDropdown');
+    selectElement.addEventListener('change', (event) => {
+        sessionStorage.setItem('selectedOption', event.target.value);
+    });
 </script>
 
 {% endblock %}

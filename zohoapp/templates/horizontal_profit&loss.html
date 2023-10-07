@@ -3,9 +3,8 @@
 {% load static %}
 
 <head>
-    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
 </head>
 
 <style>
@@ -127,6 +126,112 @@
     .customize:hover {
         background-color: transparent;
     }
+
+    .cal-container {
+        width: 50%;
+        height: auto;
+        display: none;
+    }
+
+    .calendar {
+        width: 20rem;
+        height: auto;
+        margin: 1rem;
+        background-color: #222227;
+        box-shadow: 0 0.5rem 3rem rgba(0, 0, 0, 0.4);
+    }
+
+    .month {
+        width: 100%;
+        height: 6rem;
+        background-color: #167e56;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 2rem;
+        text-align: center;
+        text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+    }
+
+    .prev,
+    .next {
+        position: relative;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    .month h1 {
+        font-size: 1.5rem;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 0.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .month p {
+        font-size: 01rem;
+    }
+
+    .weekdays {
+        width: 100%;
+        height: 2rem;
+        padding: 0 0.4rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .weekdays div {
+        font-size: 1rem;
+        font-weight: 400;
+        letter-spacing: 0.1rem;
+        width: calc(44.2rem / 7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+    }
+
+    .days {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0.2rem;
+    }
+
+    .days div {
+        font-size: 1rem;
+        margin: 0.3rem;
+        width: calc(15rem / 7);
+        height: 2.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+        transition: background-color 0.2s;
+        position: relative;
+    }
+
+    .days div:hover:not(.today) {
+        background-color: #262626;
+        border: 0.2rem solid #777;
+        cursor: pointer;
+    }
+
+    .prev-date,
+    .next-date {
+        opacity: 0.5;
+    }
+
+    .today {
+        background-color: #167e56;
+    }
+
+    .selected{
+        border: 1px solid #167e56;
+    }
+    .cal-btn{
+        flex: none;
+    }
 </style>
 
 
@@ -148,26 +253,194 @@
                     <option value="previousmonth">Previous Month</option>
                     <option value="previousquarter">Previous Quarter</option>
                     <option value="previousyear">Previous Year</option>
-                    <option value="custom">Custom</option>
+                    <option value="custom"><a href="#" id="datePickerTrigger">Custom</a></option>
                 </select>
-
-
 
 
             </div>
 
-            <div id="dateInputs" style="display: none;">
+
+            <!--<div id="dateInputs" style="display: none;">
                 <div class="date-container">
                     <label for="startDate">Start Date:</label>
-                    <input type="date" id="startDate" >
+                    <input type="date" id="startDate">
                 </div>
 
                 <div class="date-container">
                     <label for="endDate">End Date:</label>
-                    <input type="date" id="endDate" >
+                    <input type="date" id="endDate">
                 </div>
                 <button onclick="printDates()" id="applyBtn" class="btn btn-secondary">Submit</button>
+            </div>-->
+            <div class="cal-container" id="cal-container">
+                <div class="calendar">
+                    <div class="month">
+                        <i class="fas fa-angle-left prev"></i>
+                        <div class="date">
+                            <h1></h1>
+                            <p></p>
+                        </div>
+                        <i class="fas fa-angle-right next"></i>
+                    </div>
+                    <div class="weekdays">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+                    <div class="days"></div>
+                </div>
+                <div class="calendar">
+                    <div class="month">
+                        <i class="fas fa-angle-left prev"></i>
+                        <div class="date">
+                            <h1></h1>
+                            <p></p>
+                        </div>
+                        <i class="fas fa-angle-right next"></i>
+                    </div>
+                    <div class="weekdays">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+                    <div class="days"></div>
+                </div>
+                <div style="flex: none;">
+                    <button class="btn btn-success cal-btn" id="applyBtn">Apply</button>
+                    <button class="btn btn-warning cal-btn" id="applyBtn">cancel</button>
+                </div>
             </div>
+
+            <script>
+                const calendars = document.querySelectorAll('.calendar');
+
+                function getFirstDayIndex(year, month) {
+                    const firstDay = new Date(year, month, 1).getDay();
+
+                    console.log(firstDay);
+
+                    return firstDay;
+                }
+
+                calendars.forEach((cal) => {
+                    const date = new Date();
+                    const renderCalendar = () => {
+                        date.setDate(1);
+
+                        const monthDays = cal.querySelector(".days");
+                        const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+                        const prevLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+                        const firstDayIndex = getFirstDayIndex(date.getFullYear(), date.getMonth());
+                        const lastDayIndex = (firstDayIndex + lastDay - 1) % 7;
+                        const nextDays = 7 - lastDayIndex - 1;
+
+                        const months = [
+                            "January",
+                            "February",
+                            "March",
+                            "April",
+                            "May",
+                            "June",
+                            "July",
+                            "August",
+                            "September",
+                            "October",
+                            "November",
+                            "December",
+                        ];
+
+                        cal.querySelector(".date h1").innerHTML = months[date.getMonth()];
+                        cal.querySelector(".date p").innerHTML = date.toDateString();
+
+                        let days = "";
+
+                        for (let x = firstDayIndex; x > 0; x--) {
+                            days += `<div class="prev-date">${prevLastDay - x + 1}</div>`;
+                        }
+
+                        for (let i = 1; i <= lastDay; i++) {
+                            const currentDate = new Date(date.getFullYear(), date.getMonth(), i);
+                            if (
+                                currentDate.toDateString() === new Date().toDateString()
+                            ) {
+                                days += `<div class="today">${i}</div>`;
+                            } else {
+                                days += `<div class="balancedate">${i}</div>`;
+                            }
+                        }
+
+
+                        for (let j = 1; j <= nextDays; j++) {
+                            days += `<div class="next-date">${j}</div>`;
+                        }
+
+                        monthDays.innerHTML = days;
+                    };
+
+                    cal.querySelector(".prev").addEventListener("click", () => {
+                        date.setMonth(date.getMonth() - 1);
+                        renderCalendar();
+                    });
+
+                    cal.querySelector(".next").addEventListener("click", () => {
+                        date.setMonth(date.getMonth() + 1);
+                        renderCalendar();
+                    });
+
+                    cal.querySelector(".days").addEventListener("click", (event) => {
+                        if (event.target.classList.contains("today") || event.target.classList.contains("balancedate")) {
+                            const selectedDate = event.target.textContent;
+                            const selectedMonth = date.getMonth() + 1;
+                            const selectedYear = date.getFullYear();
+                            const selectedDateString = `${selectedYear}-${selectedMonth < 10 ? "0" + selectedMonth : selectedMonth}-${selectedDate < 10 ? "0" + selectedDate : selectedDate}`;
+
+                            if (!cal.dataset.startdate) {
+                                cal.dataset.startdate = selectedDateString;
+                                event.target.classList.add("selected");
+                            } else if (!cal.dataset.enddate) {
+                                cal.dataset.enddate = selectedDateString;
+                                event.target.classList.add("selected");
+
+                                const startDate = new Date(cal.dataset.startdate);
+                                const endDate = new Date(cal.dataset.enddate);
+
+                                const pTag = document.getElementById("selectedDate");
+                                pTag.textContent = `From ${startDate.toLocaleDateString()} to ${endDate.toLocaleDateString()}`;
+                            }
+                        }
+                    });
+
+
+                    renderCalendar();
+                });
+
+
+
+
+
+                const dateRange = document.getElementById('filterDropdown')
+                const dateInputs = document.getElementById('cal-container')
+
+                dateRange.addEventListener("change", function () {
+                    if (dateRange.value === "custom") {
+                        dateInputs.style.display = "flex";
+                        document.getElementById('applyBtn').style.display = "block;"
+                    } else {
+                        dateInputs.style.display = "none";
+                        document.getElementById('applyBtn').style.display = "none;"
+                    }
+                });
+
+            </script>
+
 
         </div>
 
@@ -541,7 +814,7 @@
         document.getElementById("selectedDate").textContent = ` from ${startDate.toDateString()} to  ${endDate.toDateString()}`;
     }
 
-    const dateRange = document.getElementById("filterDropdown");
+    /*const dateRange = document.getElementById("filterDropdown");
     const dateInputs = document.getElementById("dateInputs");
     const applyBtn = document.getElementById('applyBtn')
 
@@ -570,15 +843,14 @@
         const formattedEndDate = endDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
         document.getElementById("selectedDate").textContent = ` from ${formattedStartDate} to  ${formattedEndDate}`;
-    }
+    }*/
 
+    const selectElement = document.getElementById('filterDropdown');
+    selectElement.addEventListener('change', (event) => {
+        sessionStorage.setItem('selectedOption', event.target.value);
+    });
 
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-
-
 
 
 {% endblock %}

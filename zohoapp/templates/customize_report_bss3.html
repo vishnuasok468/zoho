@@ -381,6 +381,11 @@
         document.getElementById("selectedDate").textContent = result;
     }
     
+    const selectElement = document.getElementById('filterDropdown');
+    const selectedOption = sessionStorage.getItem('selectedOption');
+    if (selectedOption) {
+        selectElement.value = selectedOption;
+    }
 </script>
 
 
