@@ -4,12 +4,12 @@
 
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.0/css/pikaday.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.0/css/pikaday.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.0/pikaday.min.js"></script>
 </head>
 
 <style>
-
     .multiselect {
         width: 200px;
         position: relative;
@@ -22,7 +22,7 @@
         position: absolute;
         background-color: #f9f9f9;
         min-width: 200px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 1;
     }
 
@@ -40,15 +40,15 @@
         margin-bottom: 5px;
     }
 
-    .column_button{
+    .column_button {
         height: 4vh;
         width: 5vh;
         float: right;
         margin-right: 2vh;
     }
 
-    #general{
-        background-color:#007bff;
+    #general {
+        background-color: #007bff;
     }
 
     .ui-dateRangePicker {
@@ -57,28 +57,28 @@
         color: #EEE;
     }
 
-    .myDiv:target{
-        display:block !important;
+    .myDiv:target {
+        display: block !important;
     }
 
-    .myd{
-         display:none;
-    } 
-
-    .searchdiv{
-        display: list-item;	
+    .myd {
+        display: none;
     }
 
-    .colborder{
+    .searchdiv {
+        display: list-item;
+    }
+
+    .colborder {
         border: 2px solid white;
         height: 65vh;
         overflow: hidden;
     }
 
-    .inputdiv{
-        background-color: white; 
-        color: #060606; 
-        width:39vh;
+    .inputdiv {
+        background-color: white;
+        color: #060606;
+        width: 39vh;
         height: 5vh;
         border-radius: 5px;
         margin-bottom: 1vh;
@@ -86,23 +86,23 @@
         padding-left: 2vh;
     }
 
-    .dropdown-content{
-        width:39vh;
+    .dropdown-content {
+        width: 39vh;
         border-radius: 10px;
     }
 
-    #custom-dropdown-btn{
+    #custom-dropdown-btn {
         background-color: white;
         width: 61%;
         height: 5vh;
         text-align: left;
     }
 
-    .dropdown-content .option:hover{
+    .dropdown-content .option:hover {
         background-color: #007bff;
     }
 
-    #date-options{
+    #date-options {
         background-color: white;
         width: 61%;
         margin-top: 1vh;
@@ -110,24 +110,24 @@
         margin-left: 4vh;
     }
 
-    #date-options a{
+    #date-options a {
         color: #060606;
     }
 
 
 
-    .div-option:hover{
+    .div-option:hover {
         background-color: #007bff;
     }
 
-    
-    .close-button{
+
+    .close-button {
         font-size: 2vh;
-        margin-top: 1vh; 
+        margin-top: 1vh;
         font-weight: 100;
     }
 
-    .close-button:hover{
+    .close-button:hover {
         color: blue;
     }
 
@@ -167,23 +167,138 @@
     .custom-dropdown.active .dropdown-content {
         display: block;
     }
-    #AddFilter:hover, #addmore_btn:hover{
+
+    #AddFilter:hover,
+    #addmore_btn:hover {
         background-color: transparent;
     }
 
-     #remove_btn:hover,#filteracc:hover{
+    #remove_btn:hover,
+    #filteracc:hover {
         background-color: #f8f9fa;
     }
 
-    #multi{
+    #multi {
         color: black;
     }
 
-    #multi:hover{
+    #multi:hover {
         background-color: #007bff;
         color: white;
     }
 
+    .cal-container {
+        width: 50%;
+        height: auto;
+        display: none;
+    }
+
+    .calendar-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .calendar {
+        width: 20rem;
+        height: auto;
+        margin: 1rem;
+        background-color: #222227;
+        box-shadow: 0 0.5rem 3rem rgba(0, 0, 0, 0.4);
+    }
+
+    .month {
+        width: 100%;
+        height: 6rem;
+        background-color: #167e56;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 2rem;
+        text-align: center;
+        text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+    }
+
+    .prev,
+    .next {
+        position: relative;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    .month h1 {
+        font-size: 1.5rem;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 0.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .month p {
+        font-size: 01rem;
+    }
+
+    .weekdays {
+        width: 100%;
+        height: 2rem;
+        padding: 0 0.4rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .weekdays div {
+        font-size: 1rem;
+        font-weight: 400;
+        letter-spacing: 0.1rem;
+        width: calc(44.2rem / 7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+    }
+
+    .days {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0.2rem;
+    }
+
+    .days div {
+        font-size: 1rem;
+        margin: 0.3rem;
+        width: calc(15rem / 7);
+        height: 2.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+        transition: background-color 0.2s;
+        position: relative;
+    }
+
+    .days div:hover:not(.today) {
+        background-color: #262626;
+        border: 0.2rem solid #777;
+        cursor: pointer;
+    }
+
+    .prev-date,
+    .next-date {
+        opacity: 0.5;
+    }
+
+    .today {
+        background-color: #167e56;
+    }
+
+    #cal1 .selected-start,
+    #cal2 .selected-end {
+        border: 1px solid #167e56;
+    }
+
+    .cal-btn {
+        flex: none;
+    }
 </style>
 
 <div class="container-fluid ">
@@ -192,18 +307,19 @@
             <h1 class="text-uppercase">Customize Report</h1>
         </div>
         <div class="col-md-1">
-            <a href="{% url 'balance_sheet_sthree' %}" class="btn  btn-light close-button" >
+            <a href="{% url 'balance_sheet_sthree' %}" class="btn  btn-light close-button">
                 X
             </a>
         </div>
-        </div><br><br>
+    </div><br><br>
 
 
     <div class="row row-container">
         <div class="col-md-3"><br>
             <div class="nav-item " id="general">
-                <a class="nav-link cursor-pointer active" style="background-color: grey; color: white; font-size: 3vh;">General</a>
-            </div> 
+                <a class="nav-link cursor-pointer active"
+                    style="background-color: grey; color: white; font-size: 3vh;">General</a>
+            </div>
         </div>
 
         <div class="col-md-9 myDiv" id="generaldiv">
@@ -216,7 +332,8 @@
                         <div class="col-md-9 d-flex">
                             <i class="fa fa-calendar" aria-hidden="true"
                                 style="font-size: 4vh; color: white;"></i>&nbsp;
-                            <select  id="filterDropdown" onclick="filterDates()" class="form-control text-dark bg-white" style="width: 61%;">
+                            <select id="filterDropdown" onclick="filterDates()" class="form-control text-dark bg-white"
+                                style="width: 61%;">
                                 <option value="" hidden>Select</option>
                                 <option value="today">Today</option>
                                 <option value="thisWeek">This Week</option>
@@ -231,12 +348,53 @@
                                 <option value="custom">Custom</option>
                             </select>
                         </div>
-                        <div id="dateInputs" style="display: none;margin-left: 15.5rem;" class="col-md-9">
-                            <div class="date-container" style="margin:auto;">
-                                <label for="startDate">Start Date:</label>
-                                <input type="date" id="startDate">
+                        <div class="cal-container" id="cal-container">
+                            <div class="calendar-container">
+                                <div class="calendar" id="cal1">
+                                    <div class="month">
+                                        <i class="fas fa-angle-left prev"></i>
+                                        <div class="date">
+                                            <h1></h1>
+                                            <p></p>
+                                        </div>
+                                        <i class="fas fa-angle-right next"></i>
+                                    </div>
+                                    <div class="weekdays">
+                                        <div>Sun</div>
+                                        <div>Mon</div>
+                                        <div>Tue</div>
+                                        <div>Wed</div>
+                                        <div>Thu</div>
+                                        <div>Fri</div>
+                                        <div>Sat</div>
+                                    </div>
+                                    <div class="days"></div>
+                                </div>
+                                <div class="calendar" id="cal2">
+                                    <div class="month">
+                                        <i class="fas fa-angle-left prev"></i>
+                                        <div class="date">
+                                            <h1></h1>
+                                            <p></p>
+                                        </div>
+                                        <i class="fas fa-angle-right next"></i>
+                                    </div>
+                                    <div class="weekdays">
+                                        <div>Sun</div>
+                                        <div>Mon</div>
+                                        <div>Tue</div>
+                                        <div>Wed</div>
+                                        <div>Thu</div>
+                                        <div>Fri</div>
+                                        <div>Sat</div>
+                                    </div>
+                                    <div class="days"></div>
+                                </div>
                             </div>
-                            <button onclick="printDates()" class="btn btn-secondary" id="applyBtn">Apply</button>
+                            <div style="display: flex;">
+                                <button class="btn btn-success cal-btn mx-3" id="applyBtn">Apply</button>
+                                <button class="btn btn-warning cal-btn mx-3" id="cancel">cancel</button>
+                            </div>
                         </div>
                     </div>
 
@@ -244,7 +402,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-3">
-                            <label for="ReportBasis" style="font-size: medium; margin-top: 1vh;" >Report Basis</label>
+                            <label for="ReportBasis" style="font-size: medium; margin-top: 1vh;">Report Basis</label>
                         </div>
                         <div class="col-md-6">
                             <select id="ReportBasis" class="form-control text-dark bg-white">
@@ -255,37 +413,40 @@
                         </div>
                     </div>
                 </div><br>
-    
+
                 <div class="form-group">
                     <div class="row">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-3">
                                     <input type="checkbox" style="width: 50px;">
-                                    <label for="FilterAccounts" style="margin-top: 3px; font-size: medium;">Show detailed view</label>
+                                    <label for="FilterAccounts" style="margin-top: 3px; font-size: medium;">Show
+                                        detailed view</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <hr>
-    
-                
+
+
                 <div class="row">
                     <div class="col-md-4 d-flex">
-                        <button class="btn btn-success" style="width: 100%; background-color: transparent; margin-right: 2vh;">Run Report</button>
-                        <a class="btn btn-danger" href="{% url 'balance_sheet_sthree' %}" style="width: 100%; background-color: transparent;">Cancel</a>
+                        <button class="btn btn-success"
+                            style="width: 100%; background-color: transparent; margin-right: 2vh;">Run Report</button>
+                        <a class="btn btn-danger" href="{% url 'balance_sheet_sthree' %}"
+                            style="width: 100%; background-color: transparent;">Cancel</a>
                     </div>
                 </div>
             </form>
-            
+
         </div>
     </div>
 </div>
 
 
 <script>
- function filterDates() {
+    function filterDates() {
         const selectedOption = document.getElementById("filterDropdown").value;
         const currentDate = new Date();
         let startDate, endDate;
@@ -363,8 +524,156 @@
         document.getElementById("selectedDate").textContent = `${startDate.toDateString()}  ${endDate.toDateString()}`;
     }
 
-    const dateRange = document.getElementById("filterDropdown");
-    const dateInputs = document.getElementById("dateInputs");
+    // Add a function to retrieve selected dates from localStorage
+    function getSelectedDates() {
+        const selectedStartDate = localStorage.getItem('selectedStartDate');
+        const selectedEndDate = localStorage.getItem('selectedEndDate');
+        return {
+            start: new Date(selectedStartDate),
+            end: new Date(selectedEndDate)
+        };
+    }
+
+    const calendars = document.querySelectorAll('.calendar');
+
+    function getFirstDayIndex(year, month) {
+        const firstDay = new Date(year, month, 1).getDay();
+        return firstDay;
+    }
+
+    calendars.forEach((cal) => {
+        const date = new Date();
+        const renderCalendar = () => {
+            // Retrieve selected dates from localStorage
+            const selectedDates = getSelectedDates();
+
+            date.setDate(1);
+
+            const monthDays = cal.querySelector(".days");
+            const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+            const prevLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+            const firstDayIndex = getFirstDayIndex(date.getFullYear(), date.getMonth());
+            const lastDayIndex = (firstDayIndex + lastDay - 1) % 7;
+            const nextDays = 7 - lastDayIndex - 1;
+
+            const months = [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December",
+            ];
+
+            cal.querySelector(".date h1").innerHTML = months[date.getMonth()];
+
+            let days = "";
+
+            for (let x = firstDayIndex; x > 0; x--) {
+                days += `<div class="prev-date">${prevLastDay - x + 1}</div>`;
+            }
+            for (let i = 1; i <= lastDay; i++) {
+                const currentDate = new Date(date.getFullYear(), date.getMonth(), i);
+                let classList = "balancedate";
+                if (currentDate.toDateString() === selectedDates.start.toDateString()) {
+                    classList += " selected-start";
+                }
+                if (currentDate.toDateString() === selectedDates.end.toDateString()) {
+                    classList += " selected-end";
+                }
+                if (
+                    currentDate.toDateString() === new Date().toDateString()
+                ) {
+                    classList += " today";
+                }
+                days += `<div class="${classList}">${i}</div>`;
+            }
+            for (let j = 1; j <= nextDays; j++) {
+                days += `<div class="next-date">${j}</div>`;
+            }
+            monthDays.innerHTML = days;
+        };
+
+        cal.querySelector(".prev").addEventListener("click", () => {
+            date.setMonth(date.getMonth() - 1);
+            renderCalendar();
+        });
+
+        cal.querySelector(".next").addEventListener("click", () => {
+            date.setMonth(date.getMonth() + 1);
+            renderCalendar();
+        });
+
+        // Event listener for cal1 (first calendar)
+        const cal1 = document.getElementById("cal1");
+        cal1.querySelector(".days").addEventListener("click", (event) => {
+            if (
+                event.target.classList.contains("today") ||
+                event.target.classList.contains("balancedate")
+            ) {
+                const selectedDate = parseInt(event.target.textContent);
+                const selectedMonth = cal1.querySelector('.date h1').textContent.trim();
+                const selectedYear = date.getFullYear();
+                // Clear previous start date selection in cal1
+                const previousSelectedStart = cal1.querySelector(".selected-start");
+                if (previousSelectedStart) {
+                    previousSelectedStart.classList.remove("selected-start");
+                }
+                // Set startdate dataset attribute and add selected class to current selection
+                cal1.dataset.startdate = formatDate(selectedYear, selectedMonth, selectedDate);
+                event.target.classList.add("selected-start");
+                // Navigate to selected month and year in cal1
+                navigateToMonth(cal1, selectedMonth, selectedYear);
+                // Save selected dates to localStorage
+                saveSelectedDates(cal1.dataset.startdate, cal2.dataset.enddate);
+            }
+        });
+
+        // Event listener for cal2 (second calendar)
+        const cal2 = document.getElementById("cal2");
+        cal2.querySelector(".days").addEventListener("click", (event) => {
+            if (
+                event.target.classList.contains("today") ||
+                event.target.classList.contains("balancedate")
+            ) {
+                const selectedDate = parseInt(event.target.textContent);
+                const selectedMonth = cal2.querySelector('.date h1').textContent.trim();
+                const selectedYear = date.getFullYear();
+                // Clear previous end date selection in cal2
+                const previousSelectedEnd = cal2.querySelector(".selected-end");
+                if (previousSelectedEnd) {
+                    previousSelectedEnd.classList.remove("selected-end");
+                }
+                // Set enddate dataset attribute and add selected class to current selection
+                cal2.dataset.enddate = formatDate(selectedYear, selectedMonth, selectedDate);
+                event.target.classList.add("selected-end");
+                // Navigate to selected month and year in cal2
+                navigateToMonth(cal2, selectedMonth, selectedYear);
+                // Save selected dates to localStorage
+                saveSelectedDates(cal1.dataset.startdate, cal2.dataset.enddate);
+            }
+        });
+
+        // Button click event to display selected dates
+        const button = document.getElementById("applyBtn");
+        button.addEventListener("click", () => {
+            const startDate = new Date(cal1.dataset.startdate);
+            const endDate = new Date(cal2.dataset.enddate);
+            const options = { month: 'long', day: 'numeric', year: 'numeric' };
+            const pTag = document.getElementById("selectedDate");
+            pTag.textContent = `From ${startDate.toLocaleDateString('en-US', options)} to ${endDate.toLocaleDateString('en-US', options)}`;
+        });
+        renderCalendar();
+    });
+
+    const dateRange = document.getElementById('filterDropdown');
+    const dateInputs = document.getElementById('cal-container');
 
     dateRange.addEventListener("change", function () {
         if (dateRange.value === "custom") {
@@ -374,18 +683,16 @@
         }
     });
 
-    function printDates() {
-        const startDate = document.getElementById("startDate").value;
-
-        const result = `From ${startDate} `;
-        document.getElementById("selectedDate").textContent = result;
-    }
-    
     const selectElement = document.getElementById('filterDropdown');
     const selectedOption = sessionStorage.getItem('selectedOption');
     if (selectedOption) {
         selectElement.value = selectedOption;
     }
+    // Show cal-container if "custom" is selected on page load
+    if (selectedOption === "custom") {
+        dateInputs.style.display = "block";
+    }
+
 </script>
 
 

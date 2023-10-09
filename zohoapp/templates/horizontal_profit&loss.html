@@ -133,6 +133,11 @@
         display: none;
     }
 
+    .calendar-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
     .calendar {
         width: 20rem;
         height: auto;
@@ -226,10 +231,11 @@
         background-color: #167e56;
     }
 
-    .selected{
+    .selected {
         border: 1px solid #167e56;
     }
-    .cal-btn{
+
+    .cal-btn {
         flex: none;
     }
 </style>
@@ -255,71 +261,64 @@
                     <option value="previousyear">Previous Year</option>
                     <option value="custom"><a href="#" id="datePickerTrigger">Custom</a></option>
                 </select>
-
-
             </div>
-
-
-            <!--<div id="dateInputs" style="display: none;">
-                <div class="date-container">
-                    <label for="startDate">Start Date:</label>
-                    <input type="date" id="startDate">
-                </div>
-
-                <div class="date-container">
-                    <label for="endDate">End Date:</label>
-                    <input type="date" id="endDate">
-                </div>
-                <button onclick="printDates()" id="applyBtn" class="btn btn-secondary">Submit</button>
-            </div>-->
             <div class="cal-container" id="cal-container">
-                <div class="calendar">
-                    <div class="month">
-                        <i class="fas fa-angle-left prev"></i>
-                        <div class="date">
-                            <h1></h1>
-                            <p></p>
+                <div class="calendar-container">
+                    <div class="calendar" id="cal1">
+                        <div class="month">
+                            <i class="fas fa-angle-left prev"></i>
+                            <div class="date">
+                                <h1></h1>
+                                <p></p>
+                            </div>
+                            <i class="fas fa-angle-right next"></i>
                         </div>
-                        <i class="fas fa-angle-right next"></i>
-                    </div>
-                    <div class="weekdays">
-                        <div>Sun</div>
-                        <div>Mon</div>
-                        <div>Tue</div>
-                        <div>Wed</div>
-                        <div>Thu</div>
-                        <div>Fri</div>
-                        <div>Sat</div>
-                    </div>
-                    <div class="days"></div>
-                </div>
-                <div class="calendar">
-                    <div class="month">
-                        <i class="fas fa-angle-left prev"></i>
-                        <div class="date">
-                            <h1></h1>
-                            <p></p>
+                        <div class="weekdays">
+                            <div>Sun</div>
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
                         </div>
-                        <i class="fas fa-angle-right next"></i>
+                        <div class="days"></div>
                     </div>
-                    <div class="weekdays">
-                        <div>Sun</div>
-                        <div>Mon</div>
-                        <div>Tue</div>
-                        <div>Wed</div>
-                        <div>Thu</div>
-                        <div>Fri</div>
-                        <div>Sat</div>
+                    <div class="calendar" id="cal2">
+                        <div class="month">
+                            <i class="fas fa-angle-left prev"></i>
+                            <div class="date">
+                                <h1></h1>
+                                <p></p>
+                            </div>
+                            <i class="fas fa-angle-right next"></i>
+                        </div>
+                        <div class="weekdays">
+                            <div>Sun</div>
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
+                        </div>
+                        <div class="days"></div>
                     </div>
-                    <div class="days"></div>
                 </div>
-                <div style="flex: none;">
-                    <button class="btn btn-success cal-btn" id="applyBtn">Apply</button>
-                    <button class="btn btn-warning cal-btn" id="applyBtn">cancel</button>
+                <div style="display: flex;">
+                    <button class="btn btn-success cal-btn mx-3" id="applyBtn">Apply</button>
+                    <button class="btn btn-warning cal-btn mx-3" id="cancel">cancel</button>
                 </div>
             </div>
 
             <script>
+
+                // Add a function to save selected dates to localStorage
+                function saveSelectedDates(selectedStartDate, selectedEndDate) {
+                    localStorage.setItem('selectedStartDate', selectedStartDate);
+                    localStorage.setItem('selectedEndDate', selectedEndDate);
+                }
+
                 const calendars = document.querySelectorAll('.calendar');
 
                 function getFirstDayIndex(year, month) {
@@ -358,7 +357,6 @@
                         ];
 
                         cal.querySelector(".date h1").innerHTML = months[date.getMonth()];
-                        cal.querySelector(".date p").innerHTML = date.toDateString();
 
                         let days = "";
 
@@ -395,52 +393,80 @@
                         renderCalendar();
                     });
 
-                    cal.querySelector(".days").addEventListener("click", (event) => {
+                    // Event listener for cal1 (first calendar)
+                    const cal1 = document.getElementById("cal1");
+                    cal1.querySelector(".days").addEventListener("click", (event) => {
                         if (event.target.classList.contains("today") || event.target.classList.contains("balancedate")) {
                             const selectedDate = event.target.textContent;
-                            const selectedMonth = date.getMonth() + 1;
+                            const selectedMonth = cal1.querySelector('.date h1').textContent.trim();
                             const selectedYear = date.getFullYear();
-                            const selectedDateString = `${selectedYear}-${selectedMonth < 10 ? "0" + selectedMonth : selectedMonth}-${selectedDate < 10 ? "0" + selectedDate : selectedDate}`;
+                            const selectedDateString = `${selectedYear}-${selectedMonth}-${selectedDate}`;
 
-                            if (!cal.dataset.startdate) {
-                                cal.dataset.startdate = selectedDateString;
-                                event.target.classList.add("selected");
-                            } else if (!cal.dataset.enddate) {
-                                cal.dataset.enddate = selectedDateString;
-                                event.target.classList.add("selected");
-
-                                const startDate = new Date(cal.dataset.startdate);
-                                const endDate = new Date(cal.dataset.enddate);
-
-                                const pTag = document.getElementById("selectedDate");
-                                pTag.textContent = `From ${startDate.toLocaleDateString()} to ${endDate.toLocaleDateString()}`;
+                            // Remove selected class from previously selected date in cal1
+                            const previousSelected = cal1.querySelector(".selected");
+                            if (previousSelected) {
+                                previousSelected.classList.remove("selected");
                             }
+
+                            // Set startdate dataset attribute and add selected class to current selection
+                            cal1.dataset.startdate = selectedDateString;
+                            event.target.classList.add("selected");
+
+                            // Save selected dates to localStorage
+                            saveSelectedDates(cal1.dataset.startdate, cal2.dataset.enddate);
                         }
                     });
 
+                    // Event listener for cal2 (second calendar)
+                    const cal2 = document.getElementById("cal2");
+                    cal2.querySelector(".days").addEventListener("click", (event) => {
+                        if (event.target.classList.contains("today") || event.target.classList.contains("balancedate")) {
+                            const selectedDate = event.target.textContent;
+                            const selectedMonth = cal2.querySelector('.date h1').textContent.trim();
+                            const selectedYear = date.getFullYear();
+                            const selectedDateString = `${selectedYear}-${selectedMonth}-${selectedDate}`;
 
+                            // Remove selected class from previously selected date in cal2
+                            const previousSelected = cal2.querySelector(".selected");
+                            if (previousSelected) {
+                                previousSelected.classList.remove("selected");
+                            }
+
+                            // Set enddate dataset attribute and add selected class to current selection
+                            cal2.dataset.enddate = selectedDateString;
+                            event.target.classList.add("selected");
+
+                            // Save selected dates to localStorage
+                            saveSelectedDates(cal1.dataset.startdate, cal2.dataset.enddate);
+                        }
+                    });
+
+                    // Button click event to display selected dates
+                    const button = document.getElementById("applyBtn");
+                    button.addEventListener("click", () => {
+                        const startDate = new Date(cal1.dataset.startdate);
+                        const endDate = new Date(cal2.dataset.enddate);
+                        const options = { month: 'long', day: 'numeric', year: 'numeric' };
+
+
+                        const pTag = document.getElementById("selectedDate");
+                        pTag.textContent = `From ${startDate.toLocaleDateString('en-US', options)} to ${endDate.toLocaleDateString('en-US', options)}`;
+                    });
                     renderCalendar();
                 });
-
-
-
-
 
                 const dateRange = document.getElementById('filterDropdown')
                 const dateInputs = document.getElementById('cal-container')
 
                 dateRange.addEventListener("change", function () {
                     if (dateRange.value === "custom") {
-                        dateInputs.style.display = "flex";
-                        document.getElementById('applyBtn').style.display = "block;"
+                        dateInputs.style.display = "block";
                     } else {
                         dateInputs.style.display = "none";
-                        document.getElementById('applyBtn').style.display = "none;"
                     }
                 });
 
             </script>
-
 
         </div>
 
@@ -716,14 +742,14 @@
         var ws = XLSX.utils.table_to_sheet(table);
         var wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-        XLSX.writeFile(wb, 'report.xlsx');
+        XLSX.writeFile(wb, 'Horizontal_profit_and_loss.xlsx');
     }
 
     function exportToPDF() {
         var content = document.getElementById('pdfdiv');
         html2pdf()
             .from(content)
-            .save('report.pdf')
+            .save('Horizontal_profit_and_loss.pdf')
     }
 
     function display() {
@@ -814,36 +840,7 @@
         document.getElementById("selectedDate").textContent = ` from ${startDate.toDateString()} to  ${endDate.toDateString()}`;
     }
 
-    /*const dateRange = document.getElementById("filterDropdown");
-    const dateInputs = document.getElementById("dateInputs");
-    const applyBtn = document.getElementById('applyBtn')
 
-    dateRange.addEventListener("change", function () {
-        if (dateRange.value === "custom") {
-            dateInputs.style.display = "block";
-        } else {
-            dateInputs.style.display = "none";
-        }
-    });
-
-    applyBtn.addEventListener("click", function () {
-        if (dateInputs.style.display === "block") {
-            dateInputs.style.display = "none"
-        } else {
-            dateInputs.style.display = "block"
-        }
-    });
-
-    function printDates() {
-        const startDate = new Date(document.getElementById("startDate").value);
-        const endDate = new Date(document.getElementById("endDate").value);
-
-        // Format the dates using the toLocaleDateString() method with the desired options
-        const formattedStartDate = startDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-        const formattedEndDate = endDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-
-        document.getElementById("selectedDate").textContent = ` from ${formattedStartDate} to  ${formattedEndDate}`;
-    }*/
 
     const selectElement = document.getElementById('filterDropdown');
     selectElement.addEventListener('change', (event) => {
