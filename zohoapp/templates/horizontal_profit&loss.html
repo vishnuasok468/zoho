@@ -106,29 +106,18 @@
     #reportrange span {
         font-size: 1rem;
     }
-    @media print {
-            /* Styles for PDF version */
-            .pdf-content {
-                background-color: white;
-                font-size: 40px;
-                vertical-align: center;
-            }
-
-            .pdf-content table td{
-                margin-left: 3rem;
-            }
-        }
 </style>
 
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-5">
-            <div class="d-flex">
+        <div class="col-md-4">
+            <div class="d-flex" style="padding: 0 5px;">
                 <i class="fa fa-calendar" aria-hidden="true" style="font-size: 4vh; color: white;"></i>&nbsp;
 
                 <!-- Date range calendar input -->
-                <div id="reportrange" style="cursor: pointer; color: #010101; background-color: #fff;height: 30px; padding: 2px; border-radius: 2px;">
+                <div id="reportrange"
+                    style="cursor: pointer; color: #010101; background-color: #fff;height: 30px; padding: 2px; border-radius: 2px;">
                     <span></span> <i class="fa fa-caret-down"></i>
                 </div>
 
@@ -178,7 +167,7 @@
             </div>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-3">
             <button class="btn btn-light"><a class="text-dark customize" href="{% url 'customize_report_hpl' %}"><i
                         class="fa fa-cog">&nbsp;</i>Customize Report</a></button>
         </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -206,10 +195,10 @@
         </div>
     </div><br><br><br>
 
-    <div class="row pdf-content" id="pdfdiv" style="width:105%">
+    <div class="row" id="pdfdiv" style="width:105%;page-break-inside: avoid;">
         <div class="row bg-dark" id="printdiv" style="border-radius: 3vh; width: 77vw;">
-            <h3 style="text-align: center; margin-top: 2vh;">{{company.company_name}}</h3>
-            <h1 style="text-align: center;">Horizontal Profit & Loss</h1>
+            <h3 style="text-align: center; margin-top: 9px;">{{company.company_name}}</h3>
+            <h1 style="text-align: center;font-size: 1.5rem;">Horizontal Profit & Loss</h1>
             <h6 style="text-align: center;">Basis: Cash</h6>
             <h6 style="text-align: center;"><span id="selectedDate">From {{ start_date }} To {{ end_date }}</span></h6>
             <br>
@@ -221,7 +210,7 @@
                             <tr>
                                 <td style="vertical-align: top; width: 50%;">
                                     <div class="text-uppercase"
-                                        style="text-align: center; color: grey; font-size: 2rem; font-weight: 500;">
+                                        style="text-align: center; color: grey; font-size: 1rem; font-weight: 500;">
                                         Expenses
                                         <p
                                             style="border-bottom: 1px solid white; margin-left: -2vh; margin-right: -2vh; margin-top: 2vh;">
@@ -240,7 +229,7 @@
                                     <div>
                                         <span class="text-uppercase" style="font-size: large;">operating
                                             expense</span>
-                                    </div><br><br>
+                                    </div><br>
 
 
                                     <div>
@@ -262,7 +251,7 @@
                                         Total for Advertising And Marketing
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <a href="#">0</a>
-                                    </div><br><br><br>
+                                    </div><br>
 
 
 
@@ -330,7 +319,7 @@
                                             <hr>
                                             <div class="text-right text-uppercase " style=" float: right;">
                                                 Total NON OPERATING Liabilities&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0
-                                            </div><br><br><br>
+                                            </div><br>
                                         </div>
                                     </div>
 
@@ -341,7 +330,7 @@
 
                                 <td style=" border-left: 1pt solid white; width: 50%;vertical-align: top;">
                                     <div class="text-uppercase"
-                                        style="text-align: center; color: grey; font-size: 2rem; font-weight: 500;">
+                                        style="text-align: center; color: grey; font-size: 1rem; font-weight: 500;">
                                         income
                                         <p
                                             style="border-bottom: 1px solid white; margin-left: -2vh; margin-right: -2vh; margin-top: 2vh;">
@@ -454,29 +443,26 @@
         XLSX.writeFile(wb, 'Horizontal_profit_and_loss.xlsx');
     }
 
-   /* function exportToPDF() {
-        var content = document.getElementById('pdfdiv');
-        html2pdf()
-            .from(content)
-            .save('Horizontal_profit_and_loss.pdf')
-    }*/
+    /* function exportToPDF() {
+         var content = document.getElementById('pdfdiv');
+         html2pdf()
+             .from(content)
+             .save('Horizontal_profit_and_loss.pdf')
+     }*/
 
     function exportToPDF() {
-            var content = document.getElementById('pdfdiv');
+        var content = document.getElementById('pdfdiv');
+        html2pdf()
+            .set({ pagebreak: { mode: 'avoid' } })
+            .from(content)
+            .set({
+                filename: 'Horizontal_profit_and_loss.pdf',
+                format: 'A4',
+            })
+            .save();
+    }
 
-            // Clone the original content element
-            var clonedContent = content.cloneNode(true);
 
-            var pdfWindow = window.open('', '_blank');
-            pdfWindow.document.open();
-            pdfWindow.document.write('<html><head>');
-            pdfWindow.document.write('<link rel="stylesheet" type="text/css" href="styles.css">'); // Include your main CSS file
-            pdfWindow.document.write('<style>@media screen { .pdf-content { display: none; } }</style>'); // Hide PDF-specific styles in the browser view
-            pdfWindow.document.write('</head><body onload="window.print()">');
-            pdfWindow.document.write(clonedContent.outerHTML);
-            pdfWindow.document.write('</body></html>');
-            pdfWindow.document.close();
-        }
 
     function display() {
         var printContents = document.getElementById("printdiv").innerHTML;
